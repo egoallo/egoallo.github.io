@@ -34,9 +34,8 @@
 
     <!-- Styles. -->
     <link
-      href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css"
+      href="https://cdn.jsdelivr.net/npm/modern-normalize@3.0.1/modern-normalize.min.css"
       rel="stylesheet"
-      type="text/css"
     />
     <link
       rel="stylesheet"
@@ -44,12 +43,46 @@
     />
     <link href="style.css" rel="stylesheet" type="text/css" />
 
-    <title>EgoAllo</title>
+    <!-- KaTeX -->
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css"
+      integrity="sha384-nB0miv6/jRmo5UMMR1wu3Gz6NLsoTkbqJghGIsx//Rlm+ZU03BU6SQNC66uf4l5+"
+      crossorigin="anonymous"
+    />
+    <script
+      defer
+      src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"
+      integrity="sha384-7zkQWkzuo3B5mTepMUcHkMB5jZaolc2xDwL6VFqjFALcbeS9Ggm/Yr2r3Dy4lfFg"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      defer
+      src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js"
+      integrity="sha384-43gviWU0YVjaDtb/GhzOouOXtZMP/7XUzwPTstBeZFe/+rCMvRwr4yROQP43s0Xk"
+      crossorigin="anonymous"
+    ></script>
+    <script>
+      document.addEventListener("DOMContentLoaded", function () {
+        renderMathInElement(document.body, {
+          // customised options
+          // • auto-render specific keys, e.g.:
+          delimiters: [
+            { left: "$$", right: "$$", display: true },
+            { left: "$", right: "$", display: false },
+            { left: "\\(", right: "\\)", display: false },
+            { left: "\\[", right: "\\]", display: true },
+          ],
+          // • rendering keys, e.g.:
+          throwOnError: false,
+        });
+      });
+    </script>
   </head>
   <body>
     <!-- Title. We tweak the wrapping behaviors a bit. -->
     <div style="height: 1em"></div>
-    <div style="text-align: center">
+    <div style="text-align: center;">
       <img
         src="./images/under-construction.jpg"
         style="width: 20em; opacity: 0.5"
@@ -63,11 +96,9 @@
         style="width: 20em; opacity: 0.5"
       />
     </div>
-    <h1 style="padding: 0 1em">
-      Estimating Body and
-      <span style="text-wrap: nowrap">Hand Motion</span>
-      <span style="text-wrap: nowrap">in an</span>
-      <span style="text-wrap: nowrap">Ego-sensed World</span>
+    <h1 style="padding: 0 1em; white-space: nowrap">
+      Estimating Body<wbr /> and Hand Motion<wbr /> in an <wbr />Ego-sensed
+      World
     </h1>
 
     <!-- Authors. -->
@@ -166,6 +197,7 @@
             z-index: 1000;
             padding: 0.5em;
             line-height: 1em;
+            border: 0.1em solid rgba(255, 255, 255, 0.3);
           "
           onclick="toggleFullscreen(event)"
         >
@@ -183,15 +215,14 @@
       </div>
       <script src="results.js"></script>
       <p style="text-align: center">
-        Scenes are reconstructed from ego-inputs using
+        Scenes are visualized using outputs from
         <a href="https://nerf.studio">Nerfstudio</a>
         and
         <a
           href="https://facebookresearch.github.io/projectaria_tools/docs/ARK/mps"
         >
-          Aria MPS
-        </a>
-        point clouds.
+          Aria MPS </a
+        >.
       </p>
     </section>
 
@@ -199,24 +230,30 @@
       <h2>Overview</h2>
       <p>
         Our system, EgoAllo, uses <em>ego</em>centric observations to estimate
-        the wearer's actions in the <em>allo</em>centric coordinate frame of the
-        scene. We do so by conditioning a diffusion model on head poses, and
-        then using visual hand observations to guide sampling at test-time.
+        the wearer's actions in the <em>allo</em>centric scene coordinate frame.
+        To do this, we:
       </p>
+      <ul>
+        <li>
+          Train a human motion and height prior conditioned on head motion.
+        </li>
+        <li>
+          Guide sampling from the prior to align with visual hand observations.
+        </li>
+      </ul>
+      <img src="./images/method.svg" style="width: 100%; margin: 1em 0" />
     </section>
 
-    <!--
     <section>
-      <h2>Conditioning</h2>
+      <h2>Head Pose Conditioning</h2>
       <p>
-        To make this work, our main insight is in the representation of head
-        pose. This can be more complicated than it seems!
+        Our key insight for improving estimation is in head pose representation,
+        which we use to condition a human motion diffusion model.
       </p>
       <p>
-        Conditioning on absolute poses introduces sensitivity to the choice of
-        world frame. Different world frames can create global trajectories that
-        look completely different to a network&mdash;even for the same body
-        motion:
+        Conditioning on absolute poses introduces sensitivity to world frame
+        choice&mdash;these trajectories have identical local body motion but
+        would look completely different as network conditioning:
       </p>
       <div style="margin: 2em 0; text-align: center">
         <img
@@ -231,36 +268,54 @@
         />
       </div>
       <p>
-        A common fix is to canonicalize sequences by aligning their first
-        timesteps. We observe, however that this introduces a sensitvity to
+        Prior works solve this by aligning trajectories based on their first
+        timesteps. We observe, however, that canonicalizing sequences this way
+        introduces a sensitivity to
         <em>time</em>. Consider two slices of the same motion:
       </p>
       <div style="margin: 2em 0; text-align: center">
+        <!-- I lower opacity here because when I rendered these I made the
+          opacity of the humans too high... need to re-render. -->
         <img
           src="./images/conditioning/slice0.png"
-          style="width: 40%; vertical-align: top"
+          style="width: 40%; vertical-align: top; opacity: 0.8"
           class="full-width-on-mobile"
         />
         <img
           src="./images/conditioning/slice1.png"
-          style="width: 40%; vertical-align: top"
+          style="width: 40%; vertical-align: top; opacity: 0.8"
           class="full-width-on-mobile"
         />
       </div>
+      <p>
+        Head poses from canonicalized sequences can still differ significantly,
+        even for the same body motion <span style="color: red">(circled)</span>:
+      </p>
       <div style="margin: 2em 0; text-align: center">
         <img
-          src="./images/conditioning/canonical_top0.png"
+          src="./images/conditioning/canonical_top0_circled.png"
           style="width: 36%; vertical-align: top"
           class="full-width-on-mobile"
         />
         <img
-          src="./images/conditioning/canonical_top2.png"
+          src="./images/conditioning/canonical_top2_circled.png"
           style="width: 50%; vertical-align: top"
           class="full-width-on-mobile"
         />
       </div>
+      <p>
+        To improve our model's ability to learn from data, we propose
+        <strong>(1)</strong>&nbsp;spatial and temporal invariance properties for
+        head pose conditioning, and <strong>(2)</strong>&nbsp;an alternative
+        representation that achieves them.
+      </p>
+      <p>
+        Our invariant parameterization couples relative central pupil frame
+        (CPF) motion $\Delta\mathbf{T}_\text{cpf}^t$ with transformations
+        between a <em>per-timestep</em> canonical frame and the CPF frame
+        $\mathbf{T}_{\text{canonical},\text{cpf}}^t$.
+      </p>
     </section>
-    -->
 
     <section>
       <h2>Related links</h2>
@@ -305,7 +360,7 @@
       style="background-color: #f7f7f7; border-radius: 1em; padding: 1em 2em"
     >
       <h2>Citation</h2>
-      <code style="overflow-x: scroll; text-wrap: nowrap">
+      <code style="overflow-x: scroll; white-space: nowrap">
         @inproceedings{yi2024egoallo,<br />
         &nbsp;&nbsp;&nbsp;&nbsp;author = {Yi, Brent and Ye, Vickie and Zheng,
         Maya and M\"uller, Lea and Pavlakos, Georgios and Ma, Yi and Malik,

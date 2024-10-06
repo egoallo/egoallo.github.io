@@ -41,7 +41,7 @@ section {
 }
 
 section.wide {
-  max-width: 60em;
+  max-width: 55em;
 }
 p {
   margin-left: auto;
@@ -109,10 +109,16 @@ code {
 
 .results {
   text-align: center;
-  height: 55em;
+  height: 43em;
   display: flex;
   flex-direction: column;
   background: #fff;
+}
+
+@media screen and (max-width: 800px) {
+  .results {
+    height: 37em;
+  }
 }
 
 .results .iframe-wrapper {
@@ -172,6 +178,16 @@ code {
   border-radius: 0.375em;
   display: block;
 }
+@media screen and (max-width: 800px) {
+  .results-thumbnails a img {
+    height: 4em;
+    width: 4em;
+  }
+}
+::fullscreen .results-thumbnails a img {
+  height: 4em;
+  width: 4em;
+}
 
 .results-prev,
 .results-next {
@@ -218,7 +234,7 @@ code {
   }
   img.full-width-on-mobile {
     width: 100% !important;
-    max-width: 25em;
+    max-width: 20em;
   }
 }
 

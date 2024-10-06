@@ -25,6 +25,19 @@ const results = [
     ],
     "./splash-results/feb28_jog_thumbnail.jpg",
   ],
+  [
+    "Copy Machine",
+    [
+      "/viser-embed/",
+      "?playbackPath=/splash-results/feb28_copymachine.viser",
+      "&synchronizedVideoOverlay=/splash-results/feb28_copymachine.mp4",
+      // [-1.0813142757165526, -1.4932786293005105, 1.1787381356967739] Vector3 {x: -1.3008334410744933, y: -2.1794283647511823, z: -0.45618389105371404}
+      "&initialCameraPosition=-1.08,-1.49,1.18",
+      "&initialCameraLookAt=-1.30,-2.18,-0.46",
+      "&darkMode",
+    ],
+    "./splash-results/feb28_copymachine_thumbnail.jpg",
+  ],
   // START: Add new results here.
   [
     "Coke",
