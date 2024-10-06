@@ -184,7 +184,7 @@ code {
     width: 4em;
   }
 }
-::fullscreen .results-thumbnails a img {
+:fullscreen .results-thumbnails a img {
   height: 4em;
   width: 4em;
 }
