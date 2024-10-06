@@ -82,20 +82,6 @@
   <body>
     <!-- Title. We tweak the wrapping behaviors a bit. -->
     <div style="height: 1em"></div>
-    <div style="text-align: center;">
-      <img
-        src="./images/under-construction.jpg"
-        style="width: 20em; opacity: 0.5"
-      />
-      <img
-        src="./images/under-construction.jpg"
-        style="width: 20em; opacity: 0.5"
-      />
-      <img
-        src="./images/under-construction.jpg"
-        style="width: 20em; opacity: 0.5"
-      />
-    </div>
     <h1 style="padding: 0 1em; white-space: nowrap">
       Estimating Body<wbr /> and Hand Motion<wbr /> in an <wbr />Ego-sensed
       World
@@ -252,8 +238,8 @@
       </p>
       <p>
         Conditioning on absolute poses introduces sensitivity to world frame
-        choice&mdash;these trajectories have identical local body motion but
-        would look completely different as network conditioning:
+        choice&mdash;consider these trajectories with identical local body
+        motion but completely different absolute head poses:
       </p>
       <div style="margin: 2em 0; text-align: center">
         <img
@@ -312,8 +298,16 @@
       <p>
         Our invariant parameterization couples relative central pupil frame
         (CPF) motion $\Delta\mathbf{T}_\text{cpf}^t$ with transformations
-        between a <em>per-timestep</em> canonical frame and the CPF frame
+        between a <em>per-timestep</em> canonicalized pose
         $\mathbf{T}_{\text{canonical},\text{cpf}}^t$.
+      </p>
+      <img
+        src="./images/conditioning/conditioning_annotated.svg"
+        style="width: 100%; margin: 1em 0"
+      />
+      <p>
+        In empirical evaluation, we find that this explains accuracy differences
+        between 5% and 18%.
       </p>
     </section>
 
