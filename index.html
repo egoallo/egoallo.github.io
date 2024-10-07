@@ -78,6 +78,21 @@
         });
       });
     </script>
+
+    <!-- Google tag (gtag.js) -->
+    <script
+      async
+      src="https://www.googletagmanager.com/gtag/js?id=G-E49FXX81PL"
+    ></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag() {
+        dataLayer.push(arguments);
+      }
+      gtag("js", new Date());
+
+      gtag("config", "G-E49FXX81PL");
+    </script>
   </head>
   <body>
     <!-- Title. We tweak the wrapping behaviors a bit. -->
@@ -344,10 +359,7 @@
         methods, while fully defining head pose trajectories relative to the
         floor plane.
       </p>
-      <p>
-        In empirical evaluation, this explains accuracy differences between 5%
-        and 18%.
-      </p>
+      <p>Empirically, this explains error differences between 5% and 18%.</p>
     </section>
 
     <section>
@@ -380,8 +392,8 @@
         "
       />
       <p>
-        Comparing naive HaMeR against EgoAllo with head pose + HaMeR input, this
-        drops hand joint estimation errors by as much as 40%.
+        Compared to naive HaMeR, EgoAllo with head pose + HaMeR input drops
+        world-frame hand joint errors by as much as 40%.
       </p>
     </section>
 
