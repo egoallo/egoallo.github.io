@@ -53,7 +53,7 @@ const results = [
     "./splash-results/coke_thumbnail.jpg",
   ],
   [
-    "Interactions",
+    "Refrigerator",
     [
       "/viser-embed/",
       "?playbackPath=/splash-results/feb13_interactions_4.viser",
@@ -67,7 +67,7 @@ const results = [
     "./splash-results/feb13_interactions_4_thumbnail.jpg",
   ],
   [
-    "Georgia Tech Bike",
+    "EgoExo4D Georgia Tech Bike",
     [
       "/viser-embed/",
       "?playbackPath=/splash-results/georgiatech_bike_14_6.viser",
@@ -81,7 +81,7 @@ const results = [
     "./splash-results/georgiatech_bike_14_6_thumbnail.jpg",
   ],
   [
-    "Georgia Tech Covid",
+    "EgoExo4D Georgia Tech Covid",
     [
       "/viser-embed/",
       "?playbackPath=/splash-results/georgiatech_covid_06_4.viser",
@@ -95,7 +95,7 @@ const results = [
     "./splash-results/georgiatech_covid_06_4_thumbnail.jpg",
   ],
   [
-    "IIITH Cooking 120",
+    "EgoExo4D IIITH Cooking 120",
     [
       "/viser-embed/",
       "?playbackPath=/splash-results/iiith_cooking_120_2.viser",
@@ -109,7 +109,7 @@ const results = [
     "./splash-results/iiith_cooking_120_2_thumbnail.jpg",
   ],
   [
-    "IIITH Cooking 64",
+    "EgoExo4D IIITH Cooking 64",
     [
       "/viser-embed/",
       "?playbackPath=/splash-results/iiith_cooking_64_2.viser",
@@ -123,7 +123,7 @@ const results = [
     "./splash-results/iiith_cooking_64_2_thumbnail.jpg",
   ],
   [
-    "UPenn Piano",
+    "EgoExo4D UPenn Piano",
     [
       "/viser-embed/",
       "?playbackPath=/splash-results/upenn_0710_Piano_1_3.viser",
