@@ -185,23 +185,72 @@
           const resultsSection = event.target
             .closest("section")
             .querySelector(".results");
-          if (!document.fullscreenElement) {
-            resultsSection
-              .requestFullscreen()
-              .then(() => {
-                resultsSection.setAttribute("data-fullscreen", "true");
-              })
-              .catch((err) => {
-                console.error(
-                  `Error attempting to enable fullscreen: ${err.message}`,
-                );
-              });
+          if (!resultsSection.hasAttribute("data-fullscreen")) {
+            if (resultsSection.requestFullscreen) {
+              resultsSection
+                .requestFullscreen()
+                .then(() => {
+                  resultsSection.setAttribute("data-fullscreen", "true");
+                })
+                .catch((err) => {
+                  console.error(
+                    `Error attempting to enable fullscreen: ${err.message}`,
+                  );
+                  // Fallback for devices that don't support Fullscreen API
+                  enableFixedFullscreen(resultsSection);
+                });
+            } else {
+              // Fallback for devices that don't support Fullscreen API
+              enableFixedFullscreen(resultsSection);
+            }
           } else {
-            document.exitFullscreen().then(() => {
-              resultsSection.removeAttribute("data-fullscreen");
-            });
+            exitFullscreen(resultsSection);
           }
         }
+
+        function exitFullscreen(element) {
+          if (document.exitFullscreen) {
+            document.exitFullscreen().then(() => {
+              element.removeAttribute("data-fullscreen");
+            });
+          }
+          // Disable fixed fullscreen fallback
+          disableFixedFullscreen(element);
+        }
+
+        function enableFixedFullscreen(element) {
+          // This is for iPhone
+          element.style.position = "fixed";
+          element.style.top = "0";
+          element.style.left = "0";
+          element.style.width = "100%";
+          element.style.height = "100%";
+          element.style.zIndex = "9999";
+          element.setAttribute("data-fullscreen", "true");
+          document.body.style.overflow = "hidden";
+        }
+
+        function disableFixedFullscreen(element) {
+          element.style.position = "relative";
+          element.style.top = "";
+          element.style.left = "";
+          element.style.width = "";
+          element.style.height = "";
+          element.style.zIndex = "";
+          element.removeAttribute("data-fullscreen");
+          document.body.style.overflow = "";
+        }
+
+        // Add event listener for fullscreenchange
+        document.addEventListener("fullscreenchange", function () {
+          const resultsSection = document.querySelector(".results");
+          if (
+            !document.fullscreenElement &&
+            resultsSection.hasAttribute("data-fullscreen")
+          ) {
+            exitFullscreen(resultsSection);
+          }
+        });
       </script>
 
       <p style="text-align: center">
@@ -212,18 +261,10 @@
         <button
           class="results-fullscreen-toggle"
           href="#"
-          style="
-            position: absolute;
-            top: 0.5em;
-            right: 0.5em;
-            z-index: 1000;
-            padding: 0.5em;
-            line-height: 1em;
-            border: 0.1em solid rgba(255, 255, 255, 0.3);
-          "
           onclick="toggleFullscreen(event)"
         >
           <i class="ti ti-arrows-maximize"></i>
+          <i class="ti ti-arrows-minimize"></i>
         </button>
         <div class="results-selector">
           <button class="results-prev">

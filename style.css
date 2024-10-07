@@ -219,6 +219,27 @@ code {
 .results-fullscreen-toggle {
   display: block;
   padding-top: 0.5em;
+  position: absolute;
+  top: 0.5em;
+  right: 0.5em;
+  z-index: 1000;
+  padding: 0.5em;
+  line-height: 1em;
+  border: 0.1em solid rgba(255, 255, 255, 0.3);
+}
+
+.results-fullscreen-toggle .ti-arrows-minimize {
+  display: none;
+}
+
+[data-fullscreen="true"] .results-fullscreen-toggle {
+  background: #c00;
+}
+[data-fullscreen="true"] .results-fullscreen-toggle .ti-arrows-maximize {
+  display: none;
+}
+[data-fullscreen="true"] .results-fullscreen-toggle .ti-arrows-minimize {
+  display: inline;
 }
 
 :fullscreen .results-fullscreen-toggle {
