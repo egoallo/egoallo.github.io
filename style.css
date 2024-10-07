@@ -98,6 +98,11 @@ code {
   color: #666;
 }
 
+#author-list a,
+#author-list a:link {
+  color: #555;
+}
+
 #affiliations {
   display: flex;
   justify-content: center;
