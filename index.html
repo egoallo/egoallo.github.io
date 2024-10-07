@@ -216,8 +216,8 @@
       <h2>Overview</h2>
       <p>
         Our system, EgoAllo, uses <em>ego</em>centric observations to estimate
-        the wearer's actions in the <em>allo</em>centric scene coordinate frame.
-        To do this, we:
+        the wearer of a head-mounted device's actions in the
+        <em>allo</em>centric scene coordinate frame. To do this, we:
       </p>
       <ul>
         <li>
@@ -233,13 +233,15 @@
     <section>
       <h2>Head Pose Conditioning</h2>
       <p>
-        Our key insight for improving estimation is in head pose representation,
-        which we use to condition a human motion diffusion model.
+        Our key insight for improving estimation is in conditioning
+        representation.
       </p>
       <p>
-        Conditioning on absolute poses introduces sensitivity to world frame
-        choice&mdash;consider these trajectories with identical local body
-        motion but completely different absolute head poses:
+        We aim to condition a human motion prior on observable head motion.
+        Naively conditioning on absolute poses, however, would introduce
+        sensitivity to arbitrary world frame choices. Consider these
+        trajectories with identical local body motion but completely different
+        absolute head poses:
       </p>
       <div style="margin: 2em 0; text-align: center">
         <img
@@ -254,14 +256,14 @@
         />
       </div>
       <p>
-        Training a model conditioned naively on these poses would result in poor
+        Training a model using these poses as conditioning would result in poor
         generalization, as inputs become susceptible to infinite possible world
         frame shifts.
       </p>
       <p>
-        Prior works solve this by aligning trajectories with their first frame.
-        We observe, however, that canonicalizing sequences this way introduces
-        sensitivity to
+        Prior works have solved this by aligning trajectories with their first
+        frame. We observe, however, that canonicalizing sequences this way leads
+        to sensitivity to
         <em>time</em>. Consider two slices of the same motion:
       </p>
       <div style="margin: 2em 0; text-align: center">
@@ -315,8 +317,13 @@
         style="width: 100%; margin: 1em 0"
       />
       <p>
-        In empirical evaluation, we find that this explains accuracy differences
-        between 5% and 18%.
+        These transformations have improved invariance properties over prior
+        methods, while fully defining head pose trajectories relative to the
+        floor plane.
+      </p>
+      <p>
+        In empirical evaluation, this explains accuracy differences between 5%
+        and 18%.
       </p>
     </section>
 
@@ -324,15 +331,14 @@
       <h2>Hand Guidance</h2>
       <p>
         Head motion encodes significant information about body motion, but
-        articulated hands require a richer input. We study visual observations
-        using
-        <a href="https://geopavlakos.github.io/hamer/">HaMeR</a> and Project
-        Aria's
+        articulated hands require a richer input. In EgoAllo, we extract visual
+        hand observations using
+        <a href="https://geopavlakos.github.io/hamer/">HaMeR</a> and
+        (optionally) Project Aria's
         <a
           href="https://facebookresearch.github.io/projectaria_tools/docs/data_formats/mps/hand_tracking"
           >wrist and palm estimator</a
-        >, and then guide diffusion sampling using a Levenberg-Marquardt
-        optimizer.
+        >. We then incorporate these into sampling via diffusion guidance.
       </p>
       <p>
         We observe that jointly estimating human hands with bodies (<span
@@ -351,8 +357,8 @@
         "
       />
       <p>
-        When only HaMeR is used for guidance, we find that this drops joint
-        errors by as much as 40%.
+        Comparing EgoAllo against naive HaMeR, this drops hand joint errors by
+        as much as 40%.
       </p>
     </section>
 
