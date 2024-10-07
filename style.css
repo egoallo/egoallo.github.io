@@ -73,7 +73,7 @@ code {
   overflow: none;
   display: block;
   background-color: #f7f7f7;
-  padding: 1em;
+  padding: 1em 1em 0.5em 1em;
   box-sizing: border-box;
   border-radius: 0.5em;
 }
@@ -168,7 +168,6 @@ code {
 
 .results-thumbnails a[data-selected="true"] {
   opacity: 1;
-  transform: scale(1.05);
 }
 
 .results-thumbnails a img {
