@@ -2,26 +2,32 @@
 <html lang="en">
   <head>
     <title>EgoAllo</title>
+    <meta
+      content="We use egocentric SLAM poses and images to estimate 3D human body pose, height, and hands."
+      name="description"
+    />
 
     <!-- Usual metadata. -->
     <meta charset="UTF-8" />
-    <meta content="" name="description" />
-    <meta content="Body " property="og:title" />
-    <meta content="" property="og:description" />
-    <meta content="" property="og:image" />
-    <meta content="" property="twitter:title" />
-    <meta content="" property="twitter:description" />
-    <meta content="" property="twitter:image" />
-    <meta property="og:type" content="website" />
-    <meta content="summary_large_image" name="twitter:card" />
-    <meta
-      name="viewport"
-      content="width=device-width, initial-scale=1, minimum-scale=1"
-    />
     <link href="./favicon.png" rel="shortcut icon" type="image/x-icon" />
     <meta
       name="viewport"
       content="width=device-width, initial-scale=1, minimum-scale=1"
+    />
+
+    <!-- Open Graph / Facebook. -->
+    <meta property="og:title" content="EgoAllo" />
+    <meta
+      property="og:description"
+      content="We use egocentric SLAM poses and images to estimate 3D human body pose, height, and hands."
+    />
+    <meta property="og:type" content="website" />
+
+    <!-- Twitter. -->
+    <meta property="twitter:title" content="EgoAllo" />
+    <meta
+      property="twitter:description"
+      content="We use egocentric SLAM poses and images to estimate 3D human body pose, height, and hands."
     />
 
     <!-- Webfont. -->
@@ -275,11 +281,11 @@
         representation.
       </p>
       <p>
-        We aim to condition a human motion prior on observable head motion.
-        Naively conditioning on absolute poses, however, would introduce
-        sensitivity to arbitrary world frame choices. Consider these
-        trajectories with identical local body motion but completely different
-        absolute head poses:
+        We aim to condition a human motion prior on head motion. Naively
+        conditioning on absolute poses, however, would introduce sensitivity to
+        arbitrary world frame choices. Consider these trajectories, which have
+        identical local body motion but completely different absolute head
+        poses:
       </p>
       <div style="margin: 2em 0; text-align: center">
         <img
@@ -342,7 +348,7 @@
         Motivated by this, our paper proposes <strong>(1)</strong>&nbsp;spatial
         and temporal invariance properties that are desirable for head pose
         conditioning, and <strong>(2)</strong>&nbsp;an alternative
-        representation that achieves them.
+        parameterization that achieves them.
       </p>
       <p>
         Using the central pupil frame (CPF) to measure head motion, our
@@ -359,7 +365,27 @@
         methods, while fully defining head pose trajectories relative to the
         floor plane.
       </p>
-      <p>Empirically, this explains error differences between 5% and 18%.</p>
+      <p>
+        Quantitatively, this explains joint position estimation error
+        differences between 5% and 18%.
+      </p>
+      <p>
+        Qualitatively, we observe consistent improvements in realism. For
+        example, see the subtle but critical improvements in foot motion for
+        this dynamic sequence:
+      </p>
+      <video
+        src="./results_videos/cond_side_by_side_smaller.mp4"
+        style="display: block"
+        width="100%"
+        controls
+        loop
+        autoplay
+        muted
+      ></video>
+      <span style="opacity: 0.5; margin: 0.75em 0; font-size: 0.8em">
+        Trajectory source: EgoExo4D, unc_soccer_09-22-23_01_27.
+      </span>
     </section>
 
     <section>

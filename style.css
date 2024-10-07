@@ -94,6 +94,7 @@ code {
   gap: 0.4em 0.875em;
   margin: 0 auto;
   padding: 0 2em;
+  max-width: 37em;
   font-weight: 600;
   color: #666;
 }
