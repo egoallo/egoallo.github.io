@@ -7,24 +7,37 @@ const results = [
       "&synchronizedVideoOverlay=/splash-results/feb28_coffeemachine.mp4",
       "&synchronizedVideoTimeOffset=-0.05",
       "&initialCameraPosition=-0.27,-0.48,1.21",
-      "&initialCameraLookAt=-0.635,-0.907,-0.703",
+      "&initialCameraLookAt=-0.635,-0.907,-0.503",
       "&baseSpeed=1.5",
       "&darkMode",
     ],
     "./splash-results/feb28_coffeemachine_thumbnail.jpg",
   ],
   [
-    "Jog",
+    "EgoExo4D IIITH Cooking 120",
     [
       "/viser-embed/",
-      "?playbackPath=/splash-results/feb28_jog.viser",
-      "&synchronizedVideoOverlay=/splash-results/feb28_jog.mp4",
-      "&initialCameraPosition=1.51,6.92,-0.24",
-      "&initialCameraLookAt=1.10,6.97,-0.23",
+      "?playbackPath=/splash-results/iiith_cooking_120_2.viser",
+      "&synchronizedVideoOverlay=/splash-results/iiith_cooking_120_2.mp4",
+      "&initialCameraPosition=0.40,-1.09,1.16",
+      "&initialCameraLookAt=-0.88,-0.66,-0.51",
+      "&baseSpeed=2",
+      "&darkMode",
+    ],
+    "./splash-results/iiith_cooking_120_2_thumbnail.jpg",
+  ],
+  [
+    "Refrigerator",
+    [
+      "/viser-embed/",
+      "?playbackPath=/splash-results/feb13_interactions_4.viser",
+      "&synchronizedVideoOverlay=/splash-results/feb13_interactions_4.mp4",
+      "&initialCameraPosition=0.30,2.13,0.35",
+      "&initialCameraLookAt=-0.60,0.73,-0.52",
       "&baseSpeed=1.5",
       "&darkMode",
     ],
-    "./splash-results/feb28_jog_thumbnail.jpg",
+    "./splash-results/feb13_interactions_4_thumbnail.jpg",
   ],
   [
     "Copy Machine",
@@ -53,19 +66,6 @@ const results = [
     "./splash-results/coke_thumbnail.jpg",
   ],
   [
-    "Refrigerator",
-    [
-      "/viser-embed/",
-      "?playbackPath=/splash-results/feb13_interactions_4.viser",
-      "&synchronizedVideoOverlay=/splash-results/feb13_interactions_4.mp4",
-      "&initialCameraPosition=0.30,2.13,0.35",
-      "&initialCameraLookAt=-0.60,0.73,-0.52",
-      "&baseSpeed=1.5",
-      "&darkMode",
-    ],
-    "./splash-results/feb13_interactions_4_thumbnail.jpg",
-  ],
-  [
     "EgoExo4D Georgia Tech Bike",
     [
       "/viser-embed/",
@@ -92,17 +92,17 @@ const results = [
     "./splash-results/georgiatech_covid_06_4_thumbnail.jpg",
   ],
   [
-    "EgoExo4D IIITH Cooking 120",
+    "Jog",
     [
       "/viser-embed/",
-      "?playbackPath=/splash-results/iiith_cooking_120_2.viser",
-      "&synchronizedVideoOverlay=/splash-results/iiith_cooking_120_2.mp4",
-      "&initialCameraPosition=0.40,-1.09,1.16",
-      "&initialCameraLookAt=-0.88,-0.66,-0.51",
-      "&baseSpeed=2",
+      "?playbackPath=/splash-results/feb28_jog.viser",
+      "&synchronizedVideoOverlay=/splash-results/feb28_jog.mp4",
+      "&initialCameraPosition=1.51,6.92,-0.24",
+      "&initialCameraLookAt=1.10,6.97,-0.23",
+      "&baseSpeed=1.5",
       "&darkMode",
     ],
-    "./splash-results/iiith_cooking_120_2_thumbnail.jpg",
+    "./splash-results/feb28_jog_thumbnail.jpg",
   ],
   [
     "EgoExo4D IIITH Cooking 64",
@@ -177,7 +177,9 @@ function initializeResultSelector(resultsElement) {
 
     // Update URL with the selected result
     const resultName = results[index][0].toLowerCase().replace(/\s+/g, "-");
-    history.pushState(null, "", `?result=${resultName}`);
+    const currentPath = window.location.pathname;
+    const newUrl = `${currentPath}?result=${resultName}`;
+    history.pushState(null, "", newUrl);
   }
 
   results.forEach(([label, src, thumbnail], index) => {
@@ -227,22 +229,3 @@ function initializeResultSelector(resultsElement) {
 
 // Initialize all result on the page
 document.querySelectorAll(".results").forEach(initializeResultSelector);
-//
-// [
-//   "Dance (EgoExo)",
-//   [
-//     "https://brentyi.github.io/egoalgo-results/build/",
-//     "?playbackPath=https://brentyi.github.io/egoalgo-results/july17/egoexo_0.viser",
-//     "&darkMode",
-//   ],
-//   "./results_thumbnails/coffee.png",
-// ],
-// [
-//   "Basketball (EgoExo)",
-//   [
-//     "https://brentyi.github.io/egoalgo-results/build/",
-//     "?playbackPath=https://brentyi.github.io/egoalgo-results/july17/egoexo_4.viser",
-//     "&darkMode",
-//   ],
-//   "./results_thumbnails/coffee.png",
-// ],

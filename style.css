@@ -26,12 +26,12 @@ h2 {
 
 a:link,
 a:visited {
-  color: #87e;
+  color: #3af;
   text-decoration: none;
 }
 
 a:hover {
-  opacity: 0.8;
+  opacity: 0.9;
 }
 
 section {
@@ -41,7 +41,7 @@ section {
 }
 
 section.wide {
-  max-width: 55em;
+  max-width: 60em;
 }
 p {
   margin-left: auto;
@@ -55,11 +55,10 @@ button {
   /* box-shadow: 0 0 0.5em rgba(255, 255, 255, 0.4); */
   font-weight: 300;
   border: 0;
-  padding: 0.5em 2em;
+  padding: 0.5em 1em;
   text-align: center;
   text-decoration: none;
   display: inline-block;
-  font-size: 16px;
   cursor: pointer;
 }
 
@@ -94,14 +93,7 @@ code {
   gap: 0.4em 0.875em;
   margin: 0 auto;
   padding: 0 2em;
-  max-width: 37em;
-  font-weight: 600;
   color: #666;
-}
-
-#author-list a,
-#author-list a:link {
-  color: #555;
 }
 
 #affiliations {
@@ -110,21 +102,13 @@ code {
   gap: 2em;
   max-width: 15em;
   margin: 0 auto;
-  font-weight: 400;
 }
 
 .results {
   text-align: center;
-  height: 43em;
   display: flex;
   flex-direction: column;
   background: #fff;
-}
-
-@media screen and (max-width: 800px) {
-  .results {
-    height: 37em;
-  }
 }
 
 .results .iframe-wrapper {
@@ -135,6 +119,7 @@ code {
   border: 0;
   width: 100%;
   height: 100%;
+  border-radius: 0.3rem;
   overflow: hidden;
   background: #000;
 }
@@ -177,21 +162,11 @@ code {
 }
 
 .results-thumbnails a img {
-  width: 6em;
-  height: 6em;
+  width: 4em;
+  height: 4em;
   object-fit: cover;
   border-radius: 0.375em;
   display: block;
-}
-@media screen and (max-width: 800px) {
-  .results-thumbnails a img {
-    height: 4em;
-    width: 4em;
-  }
-}
-:fullscreen .results-thumbnails a img {
-  height: 4em;
-  width: 4em;
 }
 
 .results-prev,
@@ -214,36 +189,6 @@ code {
 .results-next {
   right: 0;
   transform: translateX(120%) translateY(-50%);
-}
-
-.results-fullscreen-toggle {
-  display: block;
-  padding-top: 0.5em;
-  position: absolute;
-  top: 0.5em;
-  right: 0.5em;
-  z-index: 1000;
-  padding: 0.5em;
-  line-height: 1em;
-  border: 0.1em solid rgba(255, 255, 255, 0.3);
-}
-
-.results-fullscreen-toggle .ti-arrows-minimize {
-  display: none;
-}
-
-[data-fullscreen="true"] .results-fullscreen-toggle {
-  background: #c00;
-}
-[data-fullscreen="true"] .results-fullscreen-toggle .ti-arrows-maximize {
-  display: none;
-}
-[data-fullscreen="true"] .results-fullscreen-toggle .ti-arrows-minimize {
-  display: inline;
-}
-
-:fullscreen .results-fullscreen-toggle {
-  display: none;
 }
 
 /* Media queries */

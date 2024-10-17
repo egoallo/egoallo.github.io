@@ -44,8 +44,8 @@
       rel="stylesheet"
     />
     <link
+      href="https://cdnjs.cloudflare.com/ajax/libs/tabler-icons/3.19.0/tabler-icons-outline.min.css"
       rel="stylesheet"
-      href="https://cdn.jsdelivr.net/npm/@tabler/icons@latest/iconfont/tabler-icons.min.css"
     />
     <link href="style.css" rel="stylesheet" type="text/css" />
 
@@ -104,9 +104,8 @@
     <!-- Title. We tweak the wrapping behaviors a bit. -->
     <div style="height: 1em"></div>
     <h1 style="padding: 0 1em">
-      Estimating Body and
-      <span style="white-space: nowrap">Hand Motion</span> in an
-      <span style="white-space: nowrap">Ego-sensed World</span>
+      <!-- &#8209; is a non-breaking hyphen. -->
+      Estimating Body and Hand&nbsp;Motion in an Ego&#8209;sensed&nbsp;World
     </h1>
 
     <!-- Authors. -->
@@ -164,128 +163,50 @@
           arXiv
         </button>
       </a>
+      <!-- <a href="https://arxiv.org/abs/2410.03665" target="_blank"> -->
+      <!--   <button> -->
+      <!--     <i class="ti ti-file-type-pdf"></i> -->
+      <!--     Paper -->
+      <!--   </button> -->
+      <!-- </a> -->
+      <a href="./results.html" target="_blank">
+        <button
+          style="
+            background: rgb(0, 146, 240);
+            background: radial-gradient(
+              circle,
+              rgba(208, 0, 214, 1) 0%,
+              rgba(179, 0, 222, 1) 41%,
+              rgba(64, 0, 255, 1) 100%
+            );
+            background: linear-gradient(to right, #8e2de2, #4a00e0);
+            box-shadow: 0 0 0.75em 0 rgba(255, 255, 50, 1);
+          "
+        >
+          <i class="ti ti-hand-click"></i>
+          Interactive Results
+        </button>
+      </a>
     </div>
     <div style="height: 0.5em"></div>
 
     <!-- tldr -->
     <section class="wide">
       <p style="text-align: center; max-width: 30em">
-        <span class="highlight">
-          <strong>TLDR;</strong>
-          We use egocentric (
-          <i class="ti ti-eyeglass" style="font-weight: 600"></i>
-          ) SLAM poses and images to estimate 3D human body pose, height, and
-          hands in the world.
-        </span>
+        <strong>TLDR;</strong>
+        We use egocentric (
+        <i class="ti ti-eyeglass" style="font-weight: 600"></i>
+        ) SLAM poses and images to estimate human body pose, height, and hands
+        in the world.
       </p>
 
-      <script>
-        function toggleFullscreen(event) {
-          event.preventDefault();
-          const resultsSection = event.target
-            .closest("section")
-            .querySelector(".results");
-          if (!resultsSection.hasAttribute("data-fullscreen")) {
-            if (resultsSection.requestFullscreen) {
-              resultsSection
-                .requestFullscreen()
-                .then(() => {
-                  resultsSection.setAttribute("data-fullscreen", "true");
-                })
-                .catch((err) => {
-                  console.error(
-                    `Error attempting to enable fullscreen: ${err.message}`,
-                  );
-                  // Fallback for devices that don't support Fullscreen API
-                  enableFixedFullscreen(resultsSection);
-                });
-            } else {
-              // Fallback for devices that don't support Fullscreen API
-              enableFixedFullscreen(resultsSection);
-            }
-          } else {
-            exitFullscreen(resultsSection);
-          }
-        }
-
-        function exitFullscreen(element) {
-          if (document.exitFullscreen) {
-            document.exitFullscreen().then(() => {
-              element.removeAttribute("data-fullscreen");
-            });
-          }
-          // Disable fixed fullscreen fallback
-          disableFixedFullscreen(element);
-        }
-
-        function enableFixedFullscreen(element) {
-          // This is for iPhone
-          element.style.position = "fixed";
-          element.style.top = "0";
-          element.style.left = "0";
-          element.style.width = "100%";
-          element.style.height = "100%";
-          element.style.zIndex = "9999";
-          element.setAttribute("data-fullscreen", "true");
-          document.body.style.overflow = "hidden";
-        }
-
-        function disableFixedFullscreen(element) {
-          element.style.position = "relative";
-          element.style.top = "";
-          element.style.left = "";
-          element.style.width = "";
-          element.style.height = "";
-          element.style.zIndex = "";
-          element.removeAttribute("data-fullscreen");
-          document.body.style.overflow = "";
-        }
-
-        // Add event listener for fullscreenchange
-        document.addEventListener("fullscreenchange", function () {
-          const resultsSection = document.querySelector(".results");
-          if (
-            !document.fullscreenElement &&
-            resultsSection.hasAttribute("data-fullscreen")
-          ) {
-            exitFullscreen(resultsSection);
-          }
-        });
-      </script>
-
-      <p style="text-align: center">
-        Some results from our method, with input view on top-left:
-      </p>
-      <div class="results" style="position: relative">
-        <div class="iframe-wrapper"></div>
-        <button
-          class="results-fullscreen-toggle"
-          href="#"
-          onclick="toggleFullscreen(event)"
-        >
-          <i class="ti ti-arrows-maximize"></i>
-          <i class="ti ti-arrows-minimize"></i>
-        </button>
-        <div class="results-selector">
-          <button class="results-prev">
-            <i class="ti ti-chevron-left"></i>
-          </button>
-          <button class="results-next">
-            <i class="ti ti-chevron-right"></i>
-          </button>
-          <div class="results-thumbnails"></div>
-        </div>
-      </div>
-      <script src="results.js"></script>
-      <p style="text-align: center">
-        <i
-          class="ti ti-hand-click"
-          style="font-weight: 500; font-size: 1.3em"
-        ></i>
-        <span style="font-weight: 600"
-          >The visualization above is interactive!</span
-        >
-      </p>
+      <video
+        src="./egoallo_overview.mp4"
+        width="100%"
+        controls
+        muted
+        style="box-shadow: 0 0 0.75em 0 rgba(0, 0, 0, 0.1); padding: 1em"
+      ></video>
       <p style="text-align: center">
         Visualized scenes are outputs from
         <a href="https://nerf.studio">Nerfstudio</a>
