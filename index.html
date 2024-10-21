@@ -199,13 +199,13 @@
         ) SLAM poses and images to estimate human body pose, height, and hands
         in the world.
       </p>
-
+      <div style="height: 0.5em"></div>
       <video
         src="./egoallo_overview.mp4"
         width="100%"
         controls
         muted
-        style="box-shadow: 0 0 0.75em 0 rgba(0, 0, 0, 0.1); padding: 1em"
+        style="box-shadow: 0 0 1em rgba(0, 0, 0, 0.07)"
       ></video>
       <p style="text-align: center">
         Visualized scenes are outputs from
@@ -217,6 +217,55 @@
           Project Aria MPS</a
         >.
       </p>
+    </section>
+    <section>
+      <h2>Interactive Results</h2>
+      <p style="text-align: center">
+        Click below to explore some example outputs!
+      </p>
+      <a
+        href="./results.html"
+        target="_blank"
+        style="position: relative; display: block; overflow: hidden"
+      >
+        <video
+          src="./interactive_demo.mp4"
+          style="opacity: 50%; display: block"
+          width="100%"
+          loop
+          autoplay
+          playsinline
+          muted
+          id="interactive-demo-video"
+        ></video>
+        <button
+          style="
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: rgb(0, 146, 240);
+            background: radial-gradient(
+              circle,
+              rgba(208, 0, 214, 1) 0%,
+              rgba(179, 0, 222, 1) 41%,
+              rgba(64, 0, 255, 1) 100%
+            );
+            background: linear-gradient(to right, #8e2de2, #4a00e0);
+            box-shadow: 0 0 2em 0 rgba(255, 255, 50, 1);
+          "
+        >
+          <i class="ti ti-hand-click"></i>
+          Open Interactive Results
+        </button>
+      </a>
+      <script>
+        // Make this video play slower.
+        document.addEventListener("DOMContentLoaded", function () {
+          var video = document.getElementById("interactive-demo-video");
+          video.playbackRate = 0.6;
+        });
+      </script>
     </section>
 
     <section>

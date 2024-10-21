@@ -34,6 +34,10 @@ a:hover {
   opacity: 0.9;
 }
 
+video {
+  border-radius: 0.3em;
+}
+
 section {
   max-width: 50em;
   margin: 0 auto 4em auto;
@@ -108,7 +112,15 @@ code {
   text-align: center;
   display: flex;
   flex-direction: column;
+  gap: 0.5em;
+  padding-bottom: 0.5em;
   background: #fff;
+}
+
+@media (hover: none) and (pointer: coarse) {
+  .hide-on-touchscreens {
+    display: none;
+  }
 }
 
 .results .iframe-wrapper {
@@ -134,11 +146,9 @@ code {
   position: relative;
   left: 50%;
   transform: translateX(-50%);
-  background: #e7e7e7;
   border-radius: 0.5em;
   width: 50em;
   max-width: 70%;
-  margin: 1em 0;
 }
 
 .results-thumbnails {
