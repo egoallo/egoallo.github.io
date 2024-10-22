@@ -119,7 +119,7 @@ code {
 
 @media (hover: none) and (pointer: coarse) {
   .hide-on-touchscreens {
-    display: none;
+    display: none !important;
   }
 }
 
