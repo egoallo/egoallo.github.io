@@ -103,8 +103,7 @@ code {
 #affiliations {
   display: flex;
   justify-content: center;
-  gap: 2em;
-  max-width: 15em;
+  gap: 1em;
   margin: 0 auto;
 }
 
