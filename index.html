@@ -194,8 +194,8 @@
         <strong>TLDR;</strong>
         We use egocentric (
         <i class="ti ti-eyeglass" style="font-weight: 600"></i>
-        ) SLAM poses and images to estimate human body pose, height, and hands
-        in the world.
+        ) SLAM poses and images to estimate the wearer's body pose, height, and
+        hands.
       </p>
       <div style="height: 0.5em"></div>
       <video
@@ -205,22 +205,26 @@
         muted
         style="box-shadow: 0 0 1em rgba(0, 0, 0, 0.07)"
       ></video>
-      <p style="text-align: center">
-        Visualized scenes are outputs from
-        <a href="https://nerf.studio">Nerfstudio</a>
-        and
-        <a
-          href="https://facebookresearch.github.io/projectaria_tools/docs/ARK/mps"
-        >
-          Project Aria MPS</a
-        >.
-      </p>
     </section>
     <section>
-      <h2>Interactive Results</h2>
-      <p style="text-align: center">
-        Click below to explore some example outputs!
+      <h2>Highlights</h2>
+
+      <p>
+        We cast estimation as sampling from a conditional diffusion model. Paper
+        highlights include:
       </p>
+      <ol>
+        <li>formulating desirable invariance properties for conditioning,</li>
+        <li>
+          validating a new conditioning parameterization that achieves these
+          properties,
+        </li>
+        <li>
+          a Levenberg-Marquardt guidance optimizer for incorporating visual hand
+          observations.
+        </li>
+      </ol>
+      <p>Interactive results:</p>
       <a
         href="./results.html"
         target="_blank"
@@ -259,23 +263,33 @@
           video.playbackRate = 0.6;
         });
       </script>
+      <p style="opacity; 0.8">
+        Visualized scenes are outputs from
+        <a href="https://nerf.studio">Nerfstudio</a>
+        and
+        <a
+          href="https://facebookresearch.github.io/projectaria_tools/docs/ARK/mps"
+        >
+          Project Aria MPS</a
+        >.
+      </p>
     </section>
 
     <section>
-      <h2>Overview</h2>
+      <h2>Method</h2>
       <p>
-        Our system, EgoAllo, uses <em>ego</em>centric observations to estimate
-        the wearer of a head-mounted device's actions in the
-        <em>allo</em>centric scene coordinate frame. To do this, we:
+        Our final system, EgoAllo, uses <em>ego</em>centric observations to
+        estimate the wearer of a head-mounted device's actions in the
+        <em>allo</em>centric scene coordinate frame. To summarize, we:
       </p>
-      <ul>
+      <ol>
         <li>
           Train a human motion and height prior conditioned on head motion.
         </li>
         <li>
           Guide sampling from the prior to align with visual hand observations.
         </li>
-      </ul>
+      </ol>
       <img src="./images/method.svg" style="width: 100%; margin: 1em 0" />
     </section>
 
@@ -375,9 +389,8 @@
         differences between 5% and 18%.
       </p>
       <p>
-        Qualitatively, we observe consistent improvements in realism. For
-        example, see the subtle but critical improvements in foot motion for
-        this dynamic sequence:
+        Qualitatively, we observe better estimated motion. For example, see the
+        improvements in foot motion for this dynamic sequence:
       </p>
       <video
         src="./results_videos/cond_side_by_side_smaller.mp4"
@@ -396,22 +409,46 @@
     <section>
       <h2>Hand Guidance</h2>
       <p>
-        Head motion encodes significant information about body motion, but
-        articulated hands require a richer input. In EgoAllo, we extract visual
-        hand observations using
-        <a href="https://geopavlakos.github.io/hamer/">HaMeR</a> and
-        (optionally) Project Aria's
+        At test time, we incorporate visual hand observations via diffusion
+        guidance.
+      </p>
+      <p>
+        First, we extract hand observations using
+        <a href="https://geopavlakos.github.io/hamer/">HaMeR</a> and optionally
+        Aria's
         <a
           href="https://facebookresearch.github.io/projectaria_tools/docs/data_formats/mps/hand_tracking"
           >wrist and palm estimator</a
-        >. We then incorporate these into sampling via diffusion guidance.
+        >.
       </p>
       <p>
-        We observe that jointly estimating human hands with bodies (<span
-          style="color: purple"
-          >purple</span
-        >) reduces ambiguities and errors when compared to single-frame
-        monocular estimates (<span style="color: teal">blue</span>):
+        In each denoising step, we then guide sampling using both 3D and
+        reprojection-based costs. Our Levenberg-Marquardt optimizer for doing so
+        is much faster than gradient-based approaches:
+      </p>
+
+      <div style="margin: 2em 0">
+        <strong style="text-align: center; display: block; margin: 0 0 0.5em 0">
+          Guidance Optimizer Runtime, RTX 4090
+        </strong>
+        <img
+          src="./images/guidance_optimizer_timing.svg"
+          style="width: 30em; margin: 0 auto; display: block"
+        />
+      </div>
+
+      <p>
+        The optimizer is implemented in Python, with autodiffed sparse
+        Jacobians. If you're interested, see our
+        <a href="https://github.com/brentyi/egoallo">code release</a> and
+        library <a href="https://github.com/brentyi/jaxls">jaxls</a>!
+      </p>
+
+      <p>
+        With our guided sampling approach, we observe that jointly estimating
+        human hands with bodies (<span style="color: purple">purple</span>)
+        reduces ambiguities when compared to single-frame monocular estimates
+        (<span style="color: teal">blue</span>):
       </p>
       <img
         src="./images/hands_vs_hamer.png"
