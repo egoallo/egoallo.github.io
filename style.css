@@ -26,8 +26,7 @@ h2 {
 
 a:link,
 a:visited {
-  color: #3af;
-  text-decoration: none;
+  color: blue;
 }
 
 a:hover {
