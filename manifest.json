@@ -1,0 +1,21 @@
+{
+  "name": "EgoAllo Results",
+  "short_name": "EgoAllo",
+  "description": "Interactive results viewer for EgoAllo - 3D human body pose estimation from egocentric SLAM",
+  "start_url": "/results.html",
+  "display": "standalone",
+  "background_color": "#ffffff",
+  "theme_color": "#333333",
+  "orientation": "any",
+  "icons": [
+    {
+      "src": "/favicon.png",
+      "sizes": "any",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ],
+  "categories": ["research", "visualization", "3d"],
+  "lang": "en",
+  "dir": "ltr"
+}

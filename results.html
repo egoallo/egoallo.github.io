@@ -15,6 +15,9 @@
       content="width=device-width, initial-scale=1, minimum-scale=1"
     />
 
+    <!-- PWA manifest -->
+    <link rel="manifest" href="./manifest.json" />
+
     <!-- Open Graph / Facebook. -->
     <meta property="og:title" content="EgoAllo" />
     <meta
@@ -109,5 +112,17 @@
       </div>
     </div>
     <script src="results.js"></script>
+    <script>
+      // Register service worker for PWA functionality
+      if ('serviceWorker' in navigator) {
+        window.addEventListener('load', function() {
+          navigator.serviceWorker.register('/sw.js').then(function(registration) {
+            console.log('ServiceWorker registration successful with scope: ', registration.scope);
+          }, function(err) {
+            console.log('ServiceWorker registration failed: ', err);
+          });
+        });
+      }
+    </script>
   </body>
 </html>
